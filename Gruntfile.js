@@ -27,11 +27,20 @@ module.exports = function(grunt) {
 			'src/js/*.js'
 			]
 		},
-		wiredep: {
+		wiredep: { //injects bower dependencies
 			task: {
 				src: ['src/*.html']
 			}
 		},
+		connect: {
+     		 all: {
+        		options:{
+		          port: 9000,
+		          hostname: "0.0.0.0",
+		          livereload: true
+        		}
+      		}
+      	},
 		watch: {
 			sass: {
 				files: 'src/sass/*.scss',
@@ -43,10 +52,13 @@ module.exports = function(grunt) {
 			},
 			html: {
 				files: 'src/*.html',
-				tasks: ['wiredep']
+				tasks: ['wiredep', 'htmlmin']
+			},
+			options: {
+				livereload: true,
 			}
 		},
-		htmlmin: {
+		htmlmin: { //minifies HTMLS
 			dist: {
 				options: {                                 // Target options 
 					removeComments: true,
@@ -65,6 +77,7 @@ module.exports = function(grunt) {
 		'jshint',
 		'wiredep',
 		'htmlmin',
+		'connect',
 		'watch'
 		]);
 };
